@@ -216,6 +216,16 @@ namespace Cube {
     export function follow_line(end_type:End_TYPE,mode?:Is_Wait,speed?:number){
         return 
     }
+    
+    //% block="循线到第%count个路口|速度%speed||是否等待到达%mode"
+    //% shim=Cube::follow_line_n 
+    //% group="综合技能"
+    //% expandableArgumentMode="toggle"
+    //% count.defl=3
+    //% speed.defl=100 speed.max=100 speed.min=70
+    export function follow_line_n(count:number,speed:number,mode?:Is_Wait){
+        return 
+    }
 
     //% block="循线完成"
     //% shim=Cube::is_arrive_end

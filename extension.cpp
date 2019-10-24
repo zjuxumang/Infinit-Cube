@@ -240,6 +240,13 @@ namespace Cube {
     }
 
     //%
+    void follow_line_n(int count,int speed,int is_wait){
+        i2c->I2CWrite(0x60,count,speed);
+        if(is_wait)
+            wait_for_cmd_finish();
+    }
+
+    //%
     void turn_angle(int angle){
         i2c->I2CWrite(0x52,(uint8_t)(angle>>8),(uint8_t)(angle&0x00ff));
         wait_for_cmd_finish();
