@@ -254,10 +254,11 @@ namespace Cube {
     }
 
     //%
-    void go_distance(int dir, int dist){
+    void go_distance(int dir, int dist, int speed){
         if(dir==1)
             dist=-dist;
         i2c->I2CWrite(0x53,(uint8_t)(dist>>8),(uint8_t)(dist&0x00ff));
+        i2c->I2CWrite2Byte((uint8_t)(speed>>8),(uint8_t)(speed&0x00ff));
         wait_for_cmd_finish();
     }
 

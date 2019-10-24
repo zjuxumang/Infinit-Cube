@@ -258,11 +258,13 @@ namespace Cube {
         return 
     } 
 
-    //% block="%dir|距离%dist|mm"
+    //% block="%dir|距离%dist mm||速度%speed"
     //% shim=Cube::go_distance
     //% dist.defl=200
     //% group="综合技能"
-    export function go_distance(dir:Go_Distance, dist: number){
+    //% expandableArgumentMode="toggle"
+    //% speed.defl=200 speed.max=600 speed.min=100
+    export function go_distance(dir:Go_Distance, dist: number, speed?:number){
         return 
     }
 

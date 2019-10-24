@@ -63,5 +63,16 @@ uint32_t CubeI2C::I2CWrite(uint8_t reg_address, uint8_t value1, uint8_t value2) 
   return ret;
 }
 
+uint32_t CubeI2C::I2CWrite2Byte(uint8_t value1, uint8_t value2) {
+  int ret = 0;
+  uint8_t data_buf[2]={0};
+  data_buf[0]=value1;
+  data_buf[1]=value2;
+  ret = i2c_port_->write((uint8_t)Addr<<1, (const char *)&data_buf, 2);
+  if (ret !=0)
+      return 1;
+  return ret;
+}
+
 
 
