@@ -62,6 +62,13 @@ namespace Cube {
     void Motor(int id,int dir,int pwm){        
         i2c->I2CWrite(0x34+id,dir,pwm);
     }
+
+    //%
+    void Motor_with_delay(int id,int dir,int pwm,int delay){        
+        i2c->I2CWrite(0x34+id,dir,pwm);
+        wait_ms(delay);
+        i2c->I2CWrite(0x34+id,dir,0);
+    }
     //%
     void Set_move_base(int left,int right){
         Left_wheel=left;
@@ -70,28 +77,53 @@ namespace Cube {
         Motor(Right_wheel,0,0);
     }
     //%
-    void move_base(int dir, int speed){
+    void move_base(int dir, int speed,int time){
         if(Left_wheel<4&&Right_wheel<4){
             switch(dir){
                 case 1:
                     Motor(Left_wheel,1,speed);
                     Motor(Right_wheel,1,speed);
+                    if(time!=0){
+                        wait_ms(time);
+                        Motor(Left_wheel,0,0);
+                        Motor(Right_wheel,0,0);
+                    }
                     break;
                 case 2:
                     Motor(Left_wheel,2,speed);
                     Motor(Right_wheel,2,speed);
+                    if(time!=0){
+                        wait_ms(time);
+                        Motor(Left_wheel,0,0);
+                        Motor(Right_wheel,0,0);
+                    }
                     break;
                 case 3:
                     Motor(Left_wheel,2,speed);
                     Motor(Right_wheel,1,speed);
+                    if(time!=0){
+                        wait_ms(time);
+                        Motor(Left_wheel,0,0);
+                        Motor(Right_wheel,0,0);
+                    }
                     break;
                 case 4:
                     Motor(Left_wheel,1,speed);
                     Motor(Right_wheel,2,speed);
+                    if(time!=0){
+                        wait_ms(time);
+                        Motor(Left_wheel,0,0);
+                        Motor(Right_wheel,0,0);
+                    }
                     break;
                 case 0:
                     Motor(Left_wheel,0,speed);
                     Motor(Right_wheel,0,speed);
+                    if(time!=0){
+                        wait_ms(time);
+                        Motor(Left_wheel,0,0);
+                        Motor(Right_wheel,0,0);
+                    }
                     break;
             }
         }
@@ -103,11 +135,7 @@ namespace Cube {
         Motor(Left_wheel,left_dir,abs(left));
         Motor(Right_wheel,right_dir,abs(right));
     }
-    //%
-    void move_motor_close(int left,int right){
-        i2c->I2CWrite(0x58,(uint8_t)(left>>8),(uint8_t)(left&0x00ff));
-        i2c->I2CWrite(0x59,(uint8_t)(right>>8),(uint8_t)(right&0x00ff));
-    }
+
     //%
     int Get_Imu(int dir){
         uint8_t data_buf[2];
