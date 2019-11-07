@@ -164,7 +164,7 @@ namespace Cube {
         S2
     }
     //% block="设置舵机%servo角度%angle|等待%delay毫秒"
-    //% group="基本功能"
+    //% group="基本功能" angle.min=0 angle.max=180
     export function setServo(servo:SERVOS,angle:number,delay:number) {
         if(servo==SERVOS.S1)
             pins.servoWritePin(AnalogPin.P8,angle);
@@ -187,7 +187,7 @@ namespace Cube {
     }
 
     //% block="底盘控制 %dir|速度%speed||运行%time毫秒后停止"
-    //% shim=Cube::move_base group="底盘控制" time.defl=0 speed.defl=100 
+    //% shim=Cube::move_base group="底盘控制" time.defl=0 speed.defl=100 speed.min=0 speed.max=255
     //% expandableArgumentMode="toggle"
     export function move_base(dir:Move_base_dir, speed:number, time?:number){
         return
