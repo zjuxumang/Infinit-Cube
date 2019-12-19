@@ -3,7 +3,8 @@
     "version": "0.1.7",
     "description": "library for Infinite Cube #beta",
     "dependencies": {
-        "core": "*"
+        "core": "*",
+        "neopixel": "github:zjuxumang/pxt-neopixel#v0.6.14"
     },
     "files": [
         "README.md",
