@@ -3,6 +3,7 @@
   "Cube.Get_Imu|block": "读取陀螺仪数据%dir",
   "Cube.Get_Pin_Value|block": "数字读取 引脚%id",
   "Cube.Get_VL53L0X|block": "获取测距传感器数据 编号%begin|至%end",
+  "Cube.Get_sensor|block": "读取%port|上的%sensor",
   "Cube.Init|block": "复位编程盒",
   "Cube.Motor_Dir.Backward|block": "反转",
   "Cube.Motor_Dir.Brake|block": "刹车",

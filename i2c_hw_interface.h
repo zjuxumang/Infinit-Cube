@@ -17,9 +17,7 @@
 class CubeI2C{
   public:
     CubeI2C(MicroBitI2C* i2c_port, uint8_t address);
-    uint32_t I2CRead(uint8_t reg_address, uint8_t* temp);
-    uint32_t I2CRead(uint8_t reg_address, uint8_t* temp, uint8_t size);
-    uint32_t I2CRead(uint8_t* temp, uint8_t size);
+    uint32_t I2CRead(uint8_t reg_address, uint8_t* temp, uint8_t size=1,uint8_t arg1=0,uint8_t arg2=0);
     uint32_t I2CRead2Byte(uint8_t reg_address, uint8_t* temp);
     uint32_t I2CWrite(uint8_t reg_address, uint8_t value1, uint8_t value2=0);
     uint32_t I2CWrite2Byte(uint8_t value1, uint8_t value2);

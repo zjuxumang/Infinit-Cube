@@ -62,7 +62,7 @@ namespace Cube {
     }
     export enum Sensor_ID{
         //% block="按钮模块"
-        Button,
+        Button=1,
         //% block="触摸模块"
         Touch,
         //% block="手势&颜色模块"
@@ -140,10 +140,15 @@ namespace Cube {
 
     //% block="初始化%port|为%sensor"
     //% shim=Cube::Init_Port group="输入输出"
-    export function init_port(id:PORT_ID,sensor:Sensor_ID){
+    export function init_port(port:PORT_ID,sensor:Sensor_ID){
         return
     }
-
+    
+    //% block="读取%port|上的%sensor"
+    //% shim=Cube::Get_sensor group="输入输出"
+    export function Get_sensor(port:PORT_ID,sensor:Sensor_ID){
+        return 0
+    }
     //% block="启动马达%id|方向%dir|速度%pwm"
     //% shim=Cube::Motor pwm.defl=0 pwm.min=0 pwm.max=255 inlineInputMode=inline
     //% group="基本功能"

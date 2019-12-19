@@ -26,10 +26,10 @@ namespace Cube {
     uint8_t Left_wheel=255;
     uint8_t Right_wheel=255;
     uint8_t data[16]={0};
-    void wait_for_cmd_finish(){
+    void wait_for_cmd_finish(uint16_t timeout=500){
         uint8_t is_finish=1;
         while(1){
-            wait_ms(500);
+            wait_ms(timeout);
             if(i2c->I2CRead(0x80,&is_finish)!=0)
                 continue;
             else
@@ -160,7 +160,7 @@ namespace Cube {
         }
         else
         {
-            if((mode<<3)!=port.A_pin)
+            if(mode!=port.A_pin)
             {
                 port.A_pin=mode;
                 i2c->I2CWrite(0x05+id/2,port.Port_reg_value);
@@ -184,21 +184,17 @@ namespace Cube {
     }
     //%
     int Get_Pin_Value(int id){
-        uint8_t temp;
-        while(i2c->I2CRead(0x09,&temp)!=0);
-        return temp>>id&0x01;
+        uint8_t temp[2]={0};
+        while(i2c->I2CRead2Byte(0x09,temp)!=0)
+            wait_ms(1);
+        return (temp[1]<<8|temp[0])>>id&0x01;
     }
     //%
     int Get_ADC_Value(int id){
         uint8_t temp[2]={0};
-        uint16_t adc=0;
         uint8_t ret = i2c->I2CRead2Byte(0x16+id,temp);
         if(ret==0)
-        {
-            adc|=(uint16_t)temp[1];
-            adc|=(uint16_t)(temp[0]<<8);
-            return adc; 
-        }
+            return (uint16_t)temp[0]<<8|temp[1]; 
         else
             return ret;
         
@@ -238,12 +234,21 @@ namespace Cube {
         }
     }
     //%
+    int Get_sensor(int port_id,int sensor_id){
+        uint8_t temp[2]={0};
+        i2c->I2CWrite(0x2A,port_id,sensor_id);
+        wait_for_cmd_finish(10);
+        i2c->I2CRead2Byte(0x2B,temp);
+        return (int)temp[0]|temp[1]<<8;
+    }
+
+    //%
     void Update_VL53L0X(int begin, int end){
-        uint8_t cmd=0;
-        uint8_t cnt=end-begin+1;
-        cmd=(0x01<<begin)|(0x01<<end);
-        i2c->I2CWrite(0x41,cmd);
-        while(i2c->I2CRead(data, 2*cnt));
+        // uint8_t cmd=0;
+        // uint8_t cnt=end-begin+1;
+        // cmd=(0x01<<begin)|(0x01<<end);
+        // i2c->I2CWrite(0x41,cmd);
+        //while(i2c->I2CRead(data, 2*cnt));
         
     }
 
