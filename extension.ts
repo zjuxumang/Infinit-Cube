@@ -2,7 +2,6 @@
 namespace Cube {
     let BUS_SERVO_ENABLE=false;
     let Color_Recognize:number;
-    let strip = neopixel.create(DigitalPin.P15, 5, NeoPixelMode.RGB)
     export enum GPIO_ID{
         A0,
         A1,
@@ -106,11 +105,14 @@ namespace Cube {
         Pitch
     }
 
-    export function TurnOffRGB(){
+    //% block="关闭所有LED" group="基本功能" weight=10
+    export function TurnOffAllLED(){
+        let strip = neopixel.create(DigitalPin.P15, 5, NeoPixelMode.RGB)
+        basic.clearScreen()
         strip.clear()
         strip.show()
     }
-    
+
     //% block="复位编程盒" advanced=true
     //% shim=Cube::Init
     export function Init() {
@@ -188,6 +190,7 @@ namespace Cube {
     //% group="基本功能"
     export function LED_Counter(n:number){
         basic.clearScreen()
+        let strip = neopixel.create(DigitalPin.P15, 5, NeoPixelMode.RGB)
         strip.showColor(0x000000)
         strip.show()
         if(n>0){

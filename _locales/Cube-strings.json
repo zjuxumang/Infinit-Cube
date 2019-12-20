@@ -37,6 +37,7 @@
   "Cube.Set_Pin_PWM|block": "模拟输出 引脚%id 设为%pwm",
   "Cube.Set_Pin_Value|block": "数字输出 引脚%id 设为%level",
   "Cube.Set_move_base|block": "初始化底盘 左马达%left|右马达%right",
+  "Cube.TurnOffAllLED|block": "关闭所有LED",
   "Cube.bus_Servo|block": "总线舵机控制|ID %ID|角度 %value|时间 %time ms",
   "Cube.init_port|block": "初始化%port|为%sensor",
   "Cube.move_base|block": "底盘控制 %dir|速度%speed||运行%time毫秒后停止",
