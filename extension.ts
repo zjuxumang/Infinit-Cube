@@ -2,6 +2,7 @@
 namespace Cube {
     let BUS_SERVO_ENABLE=false;
     let Color_Recognize:number;
+    let strip = neopixel.create(DigitalPin.P15, 5, NeoPixelMode.RGB)
     export enum GPIO_ID{
         A0,
         A1,
@@ -105,6 +106,11 @@ namespace Cube {
         Pitch
     }
 
+    export function TurnOffRGB(){
+        strip.clear()
+        strip.show()
+    }
+    
     //% block="复位编程盒" advanced=true
     //% shim=Cube::Init
     export function Init() {
@@ -176,6 +182,32 @@ namespace Cube {
         else if(servo==SERVOS.S2)
             pins.servoWritePin(AnalogPin.P12,angle);
         basic.pause(delay);
+    }
+
+    //% block="LED计数器 显示%n"
+    //% group="基本功能"
+    export function LED_Counter(n:number){
+        basic.clearScreen()
+        strip.showColor(0x000000)
+        strip.show()
+        if(n>0){
+            let cnt=Math.floor(n/25);
+            let remain = n%25;
+            if(cnt>0){  
+                for(let i=0;i<cnt;i++)
+                    strip.setPixelColor(i,neopixel.rgb(20,20,20))
+                strip.show()
+            }
+            for(let x=0;x<5;x++){
+                for(let y=0;y<5;y++){
+                    led.plot(y,x);
+                    if(remain--==1)
+                        return;
+                }
+            }
+        }
+        else
+            return
     }
 
     //% block="读取陀螺仪数据%dir"
